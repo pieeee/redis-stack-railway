@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  redis-stack:
+    build: .
+    container_name: redis-stack
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "${REDIS_STACK_UI_PORT}:8001"
+    environment:
+      - REDIS_USERNAME=${REDIS_USERNAME}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DB=${REDIS_DB}
+      - REDIS_PORT=${REDIS_PORT}
+    volumes:
+      - redis_data:/data
+      - redis_logs:/var/log/redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  redis_data:
+    driver: local
+  redis_logs:
+    driver: local
