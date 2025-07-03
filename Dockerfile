@@ -22,7 +22,7 @@ RUN echo "requirepass \${REDIS_PASSWORD}" >/usr/local/etc/redis/redis.conf && \
     echo "appendfilename \"appendonly.aof\"" >>/usr/local/etc/redis/redis.conf
 
 # Create a simple health check script
-RUN echo '#!/bin/bash\nredis-cli -a $REDIS_PASSWORD ping > /dev/null 2>&1 && echo "OK" || exit 1' >/usr/local/bin/healthcheck.sh &&
+RUN echo '#!/bin/bash\nredis-cli -a $REDIS_PASSWORD ping > /dev/null 2>&1 && echo "OK" || exit 1' > /usr/local/bin/healthcheck.sh && \
     chmod +x /usr/local/bin/healthcheck.sh
 
 # Health check
