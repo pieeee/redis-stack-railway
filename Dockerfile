@@ -11,14 +11,14 @@ ENV REDIS_PORT=6379
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Create a custom redis.conf file
-RUN echo "requirepass \${REDIS_PASSWORD}" >/usr/local/etc/redis/redis.conf &&
-    echo "port \${REDIS_PORT}" >>/usr/local/etc/redis/redis.conf &&
-    echo "databases \${REDIS_DB}" >>/usr/local/etc/redis/redis.conf &&
-    echo "dir /data" >>/usr/local/etc/redis/redis.conf &&
-    echo "save 900 1" >>/usr/local/etc/redis/redis.conf &&
-    echo "save 300 10" >>/usr/local/etc/redis/redis.conf &&
-    echo "save 60 10000" >>/usr/local/etc/redis/redis.conf &&
-    echo "appendonly yes" >>/usr/local/etc/redis/redis.conf &&
+RUN echo "requirepass \${REDIS_PASSWORD}" >/usr/local/etc/redis/redis.conf && \
+    echo "port \${REDIS_PORT}" >>/usr/local/etc/redis/redis.conf && \
+    echo "databases \${REDIS_DB}" >>/usr/local/etc/redis/redis.conf && \ 
+    echo "dir /data" >>/usr/local/etc/redis/redis.conf && \
+    echo "save 900 1" >>/usr/local/etc/redis/redis.conf && \
+    echo "save 300 10" >>/usr/local/etc/redis/redis.conf && \
+    echo "save 60 10000" >>/usr/local/etc/redis/redis.conf && \
+    echo "appendonly yes" >>/usr/local/etc/redis/redis.conf && \
     echo "appendfilename \"appendonly.aof\"" >>/usr/local/etc/redis/redis.conf
 
 # Create a simple health check script
